@@ -11,7 +11,7 @@ This project is a simple API for Parking APP. Here is endpoints that already exi
 - View Parking Slot
 - Booking Summary
 
-This project using `clean code architecture`, there are 3 layers in this project (`handler`, `service`, and `repository`)
+This project using `clean code architecture` with domain driven separation, there are 3 layers in this project (`handler`, `service`, and `repository`)
 
 ## Library
 In this project, we use these libraries:
