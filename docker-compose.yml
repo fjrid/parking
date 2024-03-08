@@ -1,0 +1,42 @@
+version: '3'
+services:
+    redis:
+        image: redis:latest
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        ports:
+            - "6379:6379"
+        volumes:
+            - 'park_redis_data:/data'
+    redis-commander:
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOSTS=local:redis:6379
+        ports:
+            - "8083:8081"
+    postgresql:
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: "root"
+            POSTGRES_PASSWORD: "password"
+            PGDATA: "/var/lib/postgresql/data/db-files"
+        volumes:
+            - park_db_data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            - default
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "username@mail.com"
+            PGADMIN_DEFAULT_PASSWORD: "password"
+        ports:
+            - "8082:80"
+volumes:
+    park_db_data:
+    park_redis_data:
+networks:
+    dev_network:
+        driver: bridge
