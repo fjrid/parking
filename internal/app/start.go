@@ -8,9 +8,12 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/sirupsen/logrus"
 
-	"github.com/fjrid/parking/internal/app/controller"
+	"github.com/fjrid/parking/internal/app/controller/rest/auth"
+	"github.com/fjrid/parking/internal/app/controller/rest/parking"
+	"github.com/fjrid/parking/internal/app/controller/rest/user"
 	"github.com/fjrid/parking/internal/app/infra"
 	"github.com/fjrid/parking/pkg/echokit"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"go.uber.org/dig"
 
 	// enable `/debug/vars`
@@ -18,6 +21,8 @@ import (
 
 	// enable `/debug/pprof` API
 	_ "net/http/pprof"
+
+	_ "github.com/fjrid/parking/docs"
 )
 
 const (
@@ -57,15 +62,20 @@ func SetMiddleware(e *echo.Echo) {
 func SetRoute(
 	e *echo.Echo,
 	hc HealthCheck,
-	bookCntrl controller.BookCntrl,
+	userCtrl user.UserRestCtrl,
+	authCtrl auth.AuthRestCtrl,
+	parkingCtrl parking.ParkingRestCtrl,
 ) {
 
 	// set route
-	echokit.SetRoute(e, &bookCntrl)
+	echokit.SetRoute(e, &userCtrl)
+	echokit.SetRoute(e, &authCtrl)
+	echokit.SetRoute(e, &parkingCtrl)
 
 	// profiling
 	e.GET(healthCheckPath, hc.Handle)
 	e.HEAD(healthCheckPath, hc.Handle)
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.GET("/debug/*", echo.WrapHandler(http.DefaultServeMux))
 	e.GET("/debug/*/*", echo.WrapHandler(http.DefaultServeMux))
 }

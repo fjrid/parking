@@ -18,7 +18,7 @@ type (
 		PrefixKey     string        `envconfig:"PREFIX_KEY" default:"cache_"`
 		Host          string        `envconfig:"HOST" required:"true" default:"localhost"`
 		Port          string        `envconfig:"PORT" required:"true" default:"6379"`
-		Pass          string        `envconfig:"PASS" default:"redispass"`
+		Pass          string        `envconfig:"PASS" default:""`
 	}
 )
 

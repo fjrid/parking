@@ -1,0 +1,1236 @@
+openapi: 3.0.3
+info:
+  title: Park
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: 'http://localhost:8089'
+paths:
+  /users:
+    post:
+      tags:
+        - User
+      summary: Create User
+      description: Create User
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin+1@mail.com
+                password:
+                  type: string
+                  example: password
+                role:
+                  type: string
+                  example: ADMIN
+            examples:
+              Create User:
+                value:
+                  email: admin+1@mail.com
+                  password: password
+                  role: ADMIN
+      responses:
+        '201':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '88'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 08:42:31 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlcutl4bsj3gvpbvgv0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Bad Request
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '167'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 08:44:56 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnld0254bsj3qerq6g40
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'email: admin does not validate as email'
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Bad Request:
+                  value:
+                    error:
+                      message: 'email: admin does not validate as email'
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+        '401':
+          description: Non Admin is Unauthorized
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '143'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:22:53 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnliqjd4bsj1ucogqel0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Unauthorized
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Unauthorized
+                      id:
+                        type: string
+                        example: Akses Ditolak
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Non Admin is Unauthorized:
+                  value:
+                    error:
+                      message: Unauthorized
+                    message:
+                      en: Unauthorized
+                      id: Akses Ditolak
+                    success: false
+      security:
+        - bearerAuth: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin
+                password:
+                  type: string
+                  example: password
+            examples:
+              Login:
+                value:
+                  email: admin
+                  password: password
+      responses:
+        '201':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '320'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 09:17:47 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnldfet4bsj6dg6a76b0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: admin@mail.com
+                      token:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTcxMDE0ODY2N30.zVRfQpjSuFqNEhsY8MjlBeMW47T_YpWyZr93oCpWhFY
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    data:
+                      email: admin@mail.com
+                      token: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImV4cCI6MTcxMDE0ODY2N30.zVRfQpjSuFqNEhsY8MjlBeMW47T_YpWyZr93oCpWhFY
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Bad Request
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '167'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 09:17:58 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnldfhl4bsj6dg6a76bg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'email: admin does not validate as email'
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Bad Request:
+                  value:
+                    error:
+                      message: 'email: admin does not validate as email'
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: Register
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user+2@mail.com
+                password:
+                  type: string
+                  example: password
+            examples:
+              Register:
+                value:
+                  email: user+2@mail.com
+                  password: password
+      responses:
+        '201':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '88'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:11:01 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlil1d4bsj14li0tnig
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Email Already Registered
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '152'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:10:48 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnliku54bsj14li0tni0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: email already registered
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Email Already Registered:
+                  value:
+                    error:
+                      message: email already registered
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+  /parking:
+    post:
+      tags:
+        - Parking
+      summary: Create Parking
+      description: Create Parking
+      operationId: createParking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Parking 3
+                total_slot:
+                  type: number
+                  example: 10
+            examples:
+              Create Parking:
+                value:
+                  name: Parking 3
+                  total_slot: 10
+      responses:
+        '201':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '88'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:11:38 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlilad4bsj14li0tnj0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Name Already Used
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '153'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:15:35 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlin5t4bsj1h98ej4p0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: parking name already used
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Name Already Used:
+                  value:
+                    error:
+                      message: parking name already used
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+        '401':
+          description: Non Admin is Unauthorized
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '143'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:22:05 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnliq7d4bsj1s2uk4im0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Unauthorized
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Unauthorized
+                      id:
+                        type: string
+                        example: Akses Ditolak
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Non Admin is Unauthorized:
+                  value:
+                    error:
+                      message: Unauthorized
+                    message:
+                      en: Unauthorized
+                      id: Akses Ditolak
+                    success: false
+      security:
+        - bearerAuth: []
+  /parking/{parkingSlotID}/book:
+    post:
+      tags:
+        - Parking
+      summary: Book Parking
+      description: Book Parking
+      operationId: bookParking
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                car_number:
+                  type: string
+                  example: N1234Z
+            examples:
+              Book Parking:
+                value:
+                  car_number: N1234Z
+      responses:
+        '201':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '523'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:08:02 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlijkd4bsj14li0tncg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      CarNumber:
+                        type: string
+                        example: N1234Z
+                      CreatedAt:
+                        type: string
+                        example: '2024-03-08T22:08:02.042652+07:00'
+                      CreatedBy:
+                        type: string
+                        example: admin@mail.com
+                      DeletedAt:
+                        nullable: true
+                        example: null
+                      DeletedBy:
+                        nullable: true
+                        example: null
+                      EndTime:
+                        nullable: true
+                        example: null
+                      Fee:
+                        type: number
+                        example: 0
+                      ID:
+                        type: number
+                        example: 4
+                      ModifiedAt:
+                        type: string
+                        example: '2024-03-08T22:08:02.042652+07:00'
+                      ModifiedBy:
+                        type: string
+                        example: admin@mail.com
+                      ParkingSlotID:
+                        type: number
+                        example: 1
+                      StartTime:
+                        type: string
+                        example: '2024-03-08T22:08:02.042629+07:00'
+                      Status:
+                        type: string
+                        example: ON_GOING
+                      UserID:
+                        type: number
+                        example: 1
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    data:
+                      CarNumber: N1234Z
+                      CreatedAt: '2024-03-08T22:08:02.042652+07:00'
+                      CreatedBy: admin@mail.com
+                      DeletedAt: null
+                      DeletedBy: null
+                      EndTime: null
+                      Fee: 0
+                      ID: 4
+                      ModifiedAt: '2024-03-08T22:08:02.042652+07:00'
+                      ModifiedBy: admin@mail.com
+                      ParkingSlotID: 1
+                      StartTime: '2024-03-08T22:08:02.042629+07:00'
+                      Status: ON_GOING
+                      UserID: 1
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Parking Slot Unavailable / Has Active Booking
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '151'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:08:28 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlijr54bsj14li0tndg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: parking slot unavailable
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Has Active Booking:
+                  value:
+                    error:
+                      message: you have active booking
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+                Parking Slot Unavailable:
+                  value:
+                    error:
+                      message: parking slot unavailable
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: parkingSlotID
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+  /parking/{bookingID}/finish:
+    post:
+      tags:
+        - Parking
+      summary: Finish Book
+      description: Finish Book
+      operationId: finishBook
+      responses:
+        '200':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '539'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:09:07 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlik4t4bsj14li0tneg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      CarNumber:
+                        type: string
+                        example: N1234Z
+                      CreatedAt:
+                        type: string
+                        example: '2024-03-08T15:08:01.992183Z'
+                      CreatedBy:
+                        type: string
+                        example: admin@mail.com
+                      DeletedAt:
+                        nullable: true
+                        example: null
+                      DeletedBy:
+                        nullable: true
+                        example: null
+                      EndTime:
+                        type: string
+                        example: '2024-03-08T22:09:07.352279Z'
+                      Fee:
+                        type: number
+                        example: 10
+                      ID:
+                        type: number
+                        example: 4
+                      ModifiedAt:
+                        type: string
+                        example: '2024-03-08T22:09:07.352285+07:00'
+                      ModifiedBy:
+                        type: string
+                        example: admin@mail.com
+                      ParkingSlotID:
+                        type: number
+                        example: 1
+                      StartTime:
+                        type: string
+                        example: '2024-03-08T22:08:02.042629Z'
+                      Status:
+                        type: string
+                        example: FINISHED
+                      UserID:
+                        type: number
+                        example: 1
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    data:
+                      CarNumber: N1234Z
+                      CreatedAt: '2024-03-08T15:08:01.992183Z'
+                      CreatedBy: admin@mail.com
+                      DeletedAt: null
+                      DeletedBy: null
+                      EndTime: '2024-03-08T22:09:07.352279Z'
+                      Fee: 10
+                      ID: 4
+                      ModifiedAt: '2024-03-08T22:09:07.352285+07:00'
+                      ModifiedBy: admin@mail.com
+                      ParkingSlotID: 1
+                      StartTime: '2024-03-08T22:08:02.042629Z'
+                      Status: FINISHED
+                      UserID: 1
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Booking Not Found
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '145'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:08:58 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlik2l4bsj14li0tne0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: booking not found
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Booking Not Found:
+                  value:
+                    error:
+                      message: booking not found
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: bookingID
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '4'
+  /parking/slot:
+    get:
+      tags:
+        - Parking
+      summary: List Park Slot
+      description: List Park Slot
+      operationId: listParkSlot
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            example: BOOKED
+          description: BOOKED,AVAILABLE
+        - name: park_name
+          in: query
+          schema:
+            type: string
+            example: Parking 1
+        - name: park_number
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: car_number
+          in: query
+          schema:
+            type: string
+            example: 'N'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '10'
+        - name: offset
+          in: query
+          schema:
+            type: string
+            example: '0'
+      responses:
+        '200':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '344'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:09:45 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnliked4bsj14li0tng0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        CarNumber:
+                          type: string
+                          example: N1234Z
+                        ID:
+                          type: number
+                          example: 1
+                        ParkingName:
+                          type: string
+                          example: Parking 1
+                        ParkingNumber:
+                          type: number
+                          example: 1
+                        Status:
+                          type: string
+                          example: BOOKED
+                    example:
+                      - CarNumber: N1234Z
+                        ID: 1
+                        ParkingName: Parking 1
+                        ParkingNumber: 1
+                        Status: BOOKED
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        type: object
+                        properties:
+                          limit:
+                            type: number
+                            example: 10
+                          offset:
+                            type: number
+                            example: 0
+                          total:
+                            type: number
+                            example: 1
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    data:
+                      - CarNumber: N1234Z
+                        ID: 1
+                        ParkingName: Parking 1
+                        ParkingNumber: 1
+                        Status: BOOKED
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    meta:
+                      pagination:
+                        limit: 10
+                        offset: 0
+                        total: 1
+                    success: true
+      security:
+        - bearerAuth: []
+  /parking/{parkingSlotID}/maintenance:
+    post:
+      tags:
+        - Parking
+      summary: Change Maintenance
+      description: Change Maintenance
+      operationId: changeMaintenance
+      responses:
+        '200':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '88'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:10:23 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnliknt4bsj14li0tnh0
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+        '400':
+          description: Already Booked
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '150'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:10:14 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlikll4bsj14li0tngg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: parking already booked
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Bad Request
+                      id:
+                        type: string
+                        example: Bad Request
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Already Booked:
+                  value:
+                    error:
+                      message: parking already booked
+                    message:
+                      en: Bad Request
+                      id: Bad Request
+                    success: false
+      security:
+        - bearerAuth: []
+    parameters:
+      - name: parkingSlotID
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '2'
+  /parking/book-summary:
+    get:
+      tags:
+        - Parking
+      summary: Book Summary
+      description: Book Summary
+      operationId: bookSummary
+      parameters:
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            example: '2024-03-06'
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            example: '2024-03-08'
+      responses:
+        '200':
+          description: Success
+          headers:
+            Content-Length:
+              schema:
+                type: string
+                example: '186'
+            Date:
+              schema:
+                type: string
+                example: Fri, 08 Mar 2024 15:10:33 GMT
+            X-Request-Id:
+              schema:
+                type: string
+                example: cnlikqd4bsj14li0tnhg
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      total_booking:
+                        type: number
+                        example: 4
+                      total_fee:
+                        type: number
+                        example: 40
+                      total_time:
+                        type: string
+                        example: '20:01:17.936392'
+                  message:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: Berhasil
+                      id:
+                        type: string
+                        example: Sucessfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    data:
+                      total_booking: 4
+                      total_fee: 40
+                      total_time: '20:01:17.936392'
+                    message:
+                      en: Berhasil
+                      id: Sucessfully
+                    success: true
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: User
+  - name: Auth
+  - name: Parking
