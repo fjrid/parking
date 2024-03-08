@@ -16,6 +16,7 @@ type (
 		*sql.DB `name:"pg"`
 	}
 
+	// @mock
 	ParkingRepository interface {
 		CreateParking(ctx context.Context, data dto.CreateParkingRequest) (res entity.Parking, err error)
 		CreateParkingSlot(ctx context.Context, data dto.CreateParkingSlotRequest) (res entity.ParkingSlot, err error)

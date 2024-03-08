@@ -20,6 +20,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/golang-migrate/migrate v3.5.4+incompatible
+	github.com/golang/mock v1.4.4
 	github.com/gomodule/redigo v1.8.2 // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/kelseyhightower/envconfig v1.4.0
