@@ -64,3 +64,14 @@ To check `pprof` you can open this URL
 ```bash
 http://localhost:8089/debug/pprof/
 ```
+
+## Unit Test
+For Unit Test, you can check out to the test file
+```bash
+{projectFolder}/internal/app/service/parking/parking_test.go
+```
+
+To running unit test you can just using this command
+```bash
+./typicalw test
+```
